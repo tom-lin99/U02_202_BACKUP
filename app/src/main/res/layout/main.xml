@@ -13,6 +13,8 @@
       android:id="@+id/input_number"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
+      android:inputType="number"
+      android:maxLength="3"
       android:text="" />
 
   <Button
@@ -24,5 +26,7 @@
   <TextView
       android:id="@+id/respond"
       android:layout_width="fill_parent"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content"
+      android:textSize="30dp"
+      android:text=""/>
 </LinearLayout>
