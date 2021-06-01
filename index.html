@@ -4,22 +4,27 @@
 		<title>Page Title</title>
 		<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
     <script>
-      $(function() {
-	//luckyNum = generateLuckyNum();
-   //console.log('luckyNum = '+luckyNum)
+     $(function() {
+		luckyNum = generateLuckyNum();
+		console.log('luckyNum = '+luckyNum)
 
-    console.log('isLegal = '+isLegal(500))
-});
+		//console.log('isLegal = '+isLegal(500))
+	
+		//bind onclick
+		$( "#btGuess" ).click(guess);
+	});
 
- function generateLuckyNum(){
+function generateLuckyNum(){
     var num=0;
     var strNum = "";
-    do{
+	do{
       num =  Math.ceil((Math.random()*1000));
       //strNum = String.format("%03d",num);
       strNum = pad(num,3);
       console.log('strNum = '+strNum)
     }while(isLegal(strNum)==false);
+	
+	
     return strNum;
   }
 //數字前面補0
@@ -31,7 +36,7 @@ function pad (str, max) {
 //判斷輸入數字符合規則
   function isLegal(num){
       // TO DO
-    if(num==null||num.size!=3){//檢查長度
+    if(num==null||num.length!=3){//檢查長度
       return false;
     }else if(num[0]==num[1]//檢查是否有重複數字
             ||num[0]==num[2]
@@ -43,15 +48,67 @@ function pad (str, max) {
 
     return true;
   }
+  
+  // TO DO
+
+function getAnum(num,luckyNum){
+    var aNum =0;
+    for (i=0;i<luckyNum.length;i++){
+      if(num.charAt(i)==luckyNum.charAt(i)){
+        aNum++;
+      }
+    }
+    return aNum;
+}
+function getBnum(num,luckyNum){
+  var bNum =0;
+  for (i=0;i<luckyNum.length;i++){
+    var x = luckyNum.charAt(i);
+    if(num.charAt(i)==luckyNum.charAt(i)){//A NUM 情況跳過
+    }else{
+      // 自串有包含數字則+1
+      var pos = num.indexOf(x);
+      if(pos>=0)bNum++;
+    }
+  }
+  return bNum;
+}
+
+  function guess() {
+    var userNum = $("#inputNum").val();
+	console.log("userNum="+userNum);
+    // TO DO
+    if(!isLegal(userNum)){
+      $("#inputNum").val("");//清空輸入框
+      msg = "輸入錯誤" + "猜數字";
+	  $("#tvRespond").text(msg);
+
+    }else{
+      var numA = getAnum(userNum, luckyNum);
+      var numB = getBnum(userNum, luckyNum);
+      //
+      if(numA==luckyNum.length){
+        //不清空輸入框
+        msg = "INPUT 的數字 : "+userNum+" 恭喜你答對了! 答案 : "+luckyNum+"";
+        $("#tvRespond").text(msg);
+      }else {
+        $("#inputNum").val("");//清空輸入框
+        msg = "INPUT 的數字 : "+userNum+" = "+numA+"A"+numB+"B";
+        $("#tvRespond").text(msg);
+      }
+
+    }
+   }
+//----------
     </script>
 	</head>
 	<body>
 		<label>請輸入 3 個不重複數字 :</label>
         <br/>
-        <input id="input_num" maxlength="3"></inpu>
+        <input id="inputNum" maxlength="3"></input>
         <br/>
-        <button>送出猜測數字</button>
+        <button id="btGuess">送出猜測數字</button>
         <br/>
-        <p id="respond"></p>
+        <p id="tvRespond"></p>
 	</body>
 </html>
