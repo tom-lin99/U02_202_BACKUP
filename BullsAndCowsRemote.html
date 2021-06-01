@@ -75,8 +75,79 @@ function getBnum(num,luckyNum){
 }
 
   function guess() {
+    var URL = "https://script.google.com/macros/s/AKfycbx__MwLpIKIaLmSCGi8RPMEVNrnT2VlrVBKTrmRVufPDYHVzFo/exec";
+	
     var userNum = $("#inputNum").val();
 	console.log("userNum="+userNum);
+	
+	var name = "Tom";
+	var no = "U168";
+	var guessNum = userNum;
+	
+	
+   /*
+   //has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+   URL = URL +"?"+"name="+name+"&no="+no+"&guessNum="+guessNum;
+   $.get(URL,function(data,status){
+		alert("Data: " + data + "\nStatus: " + status);
+    });
+   */
+    /*
+	$.ajax({
+		url: URL,
+		dataType: 'json',
+		type: "GET",
+		data: {
+			name: name
+			,no: no
+			,guessNum:guessNum
+		},
+		success: function (data){
+			console.log(data);
+		}
+	})
+	*/
+	name = 'oxxo';
+const age = 18;
+ // 有興趣的可以使用下方的網址測試
+const uri = `https://script.google.com/macros/s/AKfycbw5PnzwybI_VoZaHz65TpA5DYuLkxIF-HUGjJ6jRTOje0E6bVo/exec?name=${name}&age=${age}`;
+
+fetch(uri, {method:'GET'})
+.then(res => {
+    return res.text();   // 使用 text() 可以得到純文字 String
+}).then(result => {
+    console.log(result); // 得到「你的名字是：oxxo，年紀：18 歲。」
+});
+//
+URL = URL +"?"+"name="+name+"&no="+no+"&guessNum="+guessNum;
+fetch(URL, {method:'GET'})
+.then(res => {
+    return res.text();   // 使用 text() 可以得到純文字 String
+}).then(result => {
+    console.log(result); // 得到「你的名字是：oxxo，年紀：18 歲。」
+});
+/*
+$.ajax({
+    //伺服器網址
+    url: URL,
+    // 跨網域使用 jsonp
+    dataType: 'jsonp',
+    // 可以自訂回傳方法的字串。預設是 callback
+    jsonp: 'callback',
+    // 規定只能用 GET
+    type: "GET",
+    // 傳遞的參數
+    data: {
+        			name: name
+			,no: no
+			,guessNum:guessNum
+    },
+    // 成功時顯示
+    success: function (data){
+        console.log(data);
+    }
+})
+*/
     // TO DO
     if(!isLegal(userNum)){
       $("#inputNum").val("");//清空輸入框
@@ -103,6 +174,7 @@ function getBnum(num,luckyNum){
     </script>
 	</head>
 	<body>
+		<h3>Remote</h3>
 		<label>請輸入 3 個不重複數字 :</label>
         <br/>
         <input id="inputNum" maxlength="3"></input>
