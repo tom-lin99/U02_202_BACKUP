@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page Title</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script>
+      $(function() {
+	//luckyNum = generateLuckyNum();
+   //console.log('luckyNum = '+luckyNum)
+
+    console.log('isLegal = '+isLegal(500))
+});
+
+ function generateLuckyNum(){
+    var num=0;
+    var strNum = "";
+    do{
+      num =  Math.ceil((Math.random()*1000));
+      //strNum = String.format("%03d",num);
+      strNum = pad(num,3);
+      console.log('strNum = '+strNum)
+    }while(isLegal(strNum)==false);
+    return strNum;
+  }
+//數字前面補0
+function pad (str, max) {
+    str = str.toString();
+    return str.length < max ? pad("0" + str, max) : str;
+}
+
+//判斷輸入數字符合規則
+  function isLegal(num){
+      // TO DO
+    if(num==null||num.size!=3){//檢查長度
+      return false;
+    }else if(num[0]==num[1]//檢查是否有重複數字
+            ||num[0]==num[2]
+            ||num[1]==num[2]
+    ){
+      return false;
+    }
+    //其他為正確情況
+
+    return true;
+  }
+    </script>
+	</head>
+	<body>
+		<label>請輸入 3 個不重複數字 :</label>
+        <br/>
+        <input id="input_num" maxlength="3"></inpu>
+        <br/>
+        <button>送出猜測數字</button>
+        <br/>
+        <p id="respond"></p>
+	</body>
+</html>
