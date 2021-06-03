@@ -119,7 +119,8 @@ fetch(uri, {method:'GET'})
     console.log(result); // 得到「你的名字是：oxxo，年紀：18 歲。」
 });
 //
-URL = URL +"?"+"name="+name+"&no="+no+"&guessNum="+guessNum;
+//URL = URL +"?"+"name="+name+"&no="+no+"&guessNum="+guessNum;
+URL = URL +`?name=${name}&no=${no}&guessNum=${guessNum}`;
 fetch(URL, {method:'GET'})
 .then(res => {
     return res.text();   // 使用 text() 可以得到純文字 String
